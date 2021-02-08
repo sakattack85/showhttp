@@ -1,1 +1,6 @@
-<p>appcomponent</p>
+<div *ngFor="let user of myusers">
+<p>
+  {{user.id}}--{{user.name}}--{{user.email}}
+</p>
+</div>
+<button (click)="insertuser()">Insert user</button>
