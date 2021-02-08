@@ -33,6 +33,20 @@ insertuser(){
 
 }
 
+edituser(id:string){
+  this.http
+  .put("https://showhttp-bab7b-default-rtdb.firebaseio.com/Users/"+ id +".json", {name:"viktor", email:"@mail.com"}).subscribe(
+    (response:any)=>{
+      for(let i=0; i<this.myusers.length;i++){
+        if(this.myusers[i].id==id){
+        this.myusers[i].name=response.name
+        this.myusers[i].email=response.email
+        }
+      }
+    }
+  )
+}
+
 ngOnInit(){
   this.getdata();
 }
