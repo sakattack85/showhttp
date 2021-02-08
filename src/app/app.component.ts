@@ -1,16 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Device } from './device';
+import { DevicemanagementService } from './devicemanagement.service';
 import { User } from './user';
 
 @Component({
+  providers:[DevicemanagementService],
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
   myusers=[];
+  mydevices=[]
   title = 'showhttp';
-constructor(private http:HttpClient){
+constructor(private http:HttpClient, private devicemanagement:DevicemanagementService){
 
 }
 
@@ -47,8 +51,27 @@ edituser(id:string){
   )
 }
 
+deleteuser(id:string){
+  this.http
+  .delete('https://showhttp-bab7b-default-rtdb.firebaseio.com/Users/'+ id +".json")
+  .subscribe((response)=>{
+    for(let i=0; i<this.myusers.length;i++){
+      if(this.myusers[i].id==id){
+     this.myusers.splice(i,1)
+      }
+    }
+  })
+}
+
 ngOnInit(){
   this.getdata();
+  this.devicemanagement.getdevices().subscribe(
+    (response)=>{
+      for(let key in response){
+        this.mydevices.push(new Device(key, response[key].name))
+      }
+    }
+  )
 }
 
 }

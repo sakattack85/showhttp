@@ -1,6 +1,20 @@
 <div *ngFor="let user of myusers">
 <p>
-  {{user.id}}--{{user.name}}--{{user.email}}
+  {{user.id}}--{{user.name}}--{{user.email}} <button (click)="edituser(user.id)">Edit</button>
+  <button (click)="deleteuser(user.id)">Delete</button>
 </p>
+
 </div>
 <button (click)="insertuser()">Insert user</button>
+
+
+
+
+<p>-----devices---------------</p>
+
+<div *ngFor="let device of mydevices">
+  <p>
+    {{device.id}}--{{device.name}}
+  </p>
+  
+  </div>
